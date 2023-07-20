@@ -50,7 +50,7 @@ const LoginSignup = () => {
   if (user) {
     return null;
   } else {
-    return <Authorizer roles={['admin']} />;
+    return <Authorizer />;
   }
 };
 
