@@ -1,0 +1,22 @@
+{
+  "name": "packages-website",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/react": "^2.2.1",
+    "@authorizerdev/authorizer-react": "^1.1.11",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "astro": "^2.8.5",
+    "open-props": "^1.5.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
