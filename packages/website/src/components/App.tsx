@@ -7,11 +7,15 @@ import ProfileForm from './ProfileForm';
 import ProfileCard from './ProfileCard';
 
 const App = () => {
+
+  const authUrl = import.meta.env.PUBLIC_AUTHORIZER_URL
+  const clientId = import.meta.env.PUBLIC_AUTHORIZER_CLIENT_ID
+
   return (
     <AuthorizerProvider
       config={{
-        clientID: import.meta.env.PUBLIC_AUTHORIZER_URL as string,
-        authorizerURL: import.meta.env.PUBLIC_AUTHORIZER_CLIENT_ID as string,
+        clientID: clientId,
+        authorizerURL: authUrl,
         redirectURL: window.location.origin,
       }}
     >
