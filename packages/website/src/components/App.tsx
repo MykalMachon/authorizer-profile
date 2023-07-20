@@ -10,10 +10,9 @@ const App = () => {
   return (
     <AuthorizerProvider
       config={{
-        authorizerURL: 'https://auth.mykal.codes',
+        clientID: import.meta.env.PUBLIC_AUTHORIZER_URL as string,
+        authorizerURL: import.meta.env.PUBLIC_AUTHORIZER_CLIENT_ID as string,
         redirectURL: window.location.origin,
-        clientID: '083a8560-da36-4bf5-aa8b-ce9e4b344922', // obtain your client id from authorizer dashboard
-        extraHeaders: {}, // Optional JSON object to pass extra headers in each authorizer requests.
       }}
     >
       <Header />
