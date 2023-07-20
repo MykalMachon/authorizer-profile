@@ -16,15 +16,29 @@ const App = () => {
         extraHeaders: {}, // Optional JSON object to pass extra headers in each authorizer requests.
       }}
     >
-       <header>
-          <h1>Profile Editor</h1>
-          <button>logout</button>
-        </header>
+      <Header />
       <div className="wrapper">
         <LoginSignup />
         <Profile />
       </div>
     </AuthorizerProvider>
+  );
+};
+
+const Header = () => {
+  const { user, logout } = useAuthorizer();
+
+  return (
+    <header>
+      <h1>Profile Editor</h1>
+      {user && (<button
+        onClick={() => {
+          logout();
+        }}
+      >
+        logout
+      </button>)}
+    </header>
   );
 };
 

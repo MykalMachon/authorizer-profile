@@ -24,7 +24,15 @@ const ProfileCard = () => {
         )}
       </h2>
       <p>email: {user.email}</p>
-      <p>roles: {user.roles?.map((role, idx ) => <>{role}{idx != user.roles.length - 1 && ', '}</>)}</p>
+      <p>
+        roles:{' '}
+        {user.roles?.map((role, idx) => (
+          <span key={role}>
+            {role}
+            {idx != user.roles.length - 1 && ', '}
+          </span>
+        ))}
+      </p>
     </section>
   );
 };

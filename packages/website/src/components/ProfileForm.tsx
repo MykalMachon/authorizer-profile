@@ -1,44 +1,59 @@
+import { useState } from 'react';
 import { useAuthorizer } from '@authorizerdev/authorizer-react';
 
 const ProfileForm = () => {
-  const { user } = useAuthorizer();
+  const { user, setUser, authorizerRef } = useAuthorizer();
 
   if (!user) {
     return <p>please sign in</p>;
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [formLoading, setFormLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(e.target);
+    setFormLoading(true);
+    const formData = new FormData(e.target as HTMLFormElement);
+    const newUserData = Object.fromEntries(formData.entries());
+    const { access_token } = await authorizerRef.getSession();
+    await authorizerRef.updateProfile(newUserData, {
+      Authorization: `Bearer ${access_token}`
+    });
+    const newUser = await authorizerRef.getProfile({ Authorization: `Bearer ${access_token}` });
+    if (newUser) setUser(newUser);
+    setFormLoading(false);
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <label htmlFor="given_name">
-        First Name
+        First Name*
         <input
           type="text"
           name="given_name"
           id="given_name"
           defaultValue={user.given_name || ''}
+          required
         />
       </label>
       <label htmlFor="family_name">
-        Last Name
+        Last Name*
         <input
           type="text"
           name="family_name"
           id="family_name"
           defaultValue={user.family_name || ''}
+          required
         />
       </label>
       <label htmlFor="email">
-        Email
+        Email*
         <input
           type="text"
           name="email"
           id="email"
           defaultValue={user.email || ''}
+          disabled={true}
         />
       </label>
       <label htmlFor="nickname">
@@ -59,7 +74,9 @@ const ProfileForm = () => {
           defaultValue={user.picture || ''}
         />
       </label>
-      <button type="submit">Update Profile</button>
+      <button type="submit" disabled={formLoading}>
+        {formLoading ? 'Loading...' : 'Update Profile'}
+      </button>
     </form>
   );
 };
